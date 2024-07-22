@@ -6,7 +6,7 @@ export default async function Page() {
 
   console.log(session);
 
-  if (session?.user?.role !== "admin") {
+  if (session?.user?.role !== "ADMIN") {
     return <div>You are not admin</div>;
   }
 

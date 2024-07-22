@@ -1,3 +1,4 @@
+import LogoutButton from "@/components/LogoutButton";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -9,16 +10,17 @@ export default function Home() {
         <Link href="/login">
           <Button variant="link">Login</Button>
         </Link>
-        <Link href="/login">
+        <Link href="/register">
           <Button variant="link">Register</Button>
         </Link>
-        <Link href="/login">
+        <Link href="/dashboard">
           <Button variant="link">Dashboard</Button>
         </Link>
-        <Link href="/login">
+        <Link href="/admin">
           <Button variant="link">Admin</Button>
         </Link>
       </div>
+      <LogoutButton />
     </main>
   );
 }

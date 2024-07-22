@@ -7,6 +7,7 @@ import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import { loginSchema } from "./forms-validation.schema";
 import prisma from "./prisma";
+import { sendEmailVerification } from "./send-mail";
 
 // Notice this is only an object, not a full Auth.js instance
 export default {
@@ -67,7 +68,7 @@ export default {
           });
 
           // enviar email de verificación
-          // await sendEmailVerification(user.email, token);
+          await sendEmailVerification(user.email, token);
 
           throw new Error("Please check Email send verification");
         }
