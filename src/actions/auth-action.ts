@@ -1,13 +1,16 @@
 "use server";
 
 import { signIn } from "@/auth";
-import { db } from "@/lib/db";
-import { loginSchema, registerSchema } from "@/lib/zod";
+import {
+  LoginFormValues,
+  RegisterFormValues,
+  registerSchema,
+} from "@/lib/forms-validation.schema";
+import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
-import { z } from "zod";
 
-export const loginAction = async (values: z.infer<typeof loginSchema>) => {
+export const loginAction = async (values: LoginFormValues) => {
   try {
     await signIn("credentials", {
       email: values.email,
@@ -23,9 +26,7 @@ export const loginAction = async (values: z.infer<typeof loginSchema>) => {
   }
 };
 
-export const registerAction = async (
-  values: z.infer<typeof registerSchema>
-) => {
+export const registerAction = async (values: RegisterFormValues) => {
   try {
     const { data, success } = registerSchema.safeParse(values);
     if (!success) {
@@ -35,7 +36,7 @@ export const registerAction = async (
     }
 
     // verificar si el usuario ya existe
-    const user = await db.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         email: data.email,
       },
@@ -64,7 +65,7 @@ export const registerAction = async (
     const passwordHash = await bcrypt.hash(data.password, 10);
 
     // crear el usuario
-    await db.user.create({
+    await prisma.user.create({
       data: {
         email: data.email,
         name: data.name,
