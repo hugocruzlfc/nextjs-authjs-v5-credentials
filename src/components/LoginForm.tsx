@@ -15,6 +15,8 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { loginAction } from "@/actions/auth-action";
+import { SocialButton } from "@/components/SocialButton";
+import { FaGithub, FaGoogle } from "react-icons/fa6";
 
 interface LoginFormProps {
   isVerified: boolean;
@@ -112,14 +114,14 @@ export function LoginForm({
         </form>
       </Form>
       <div className="mt-5 space-y-4">
-        <ButtonSocial provider="github">
+        <SocialButton provider="github">
           <FaGithub className="mr-2 h-4 w-4" />
           <span>Sign in with Github</span>
-        </ButtonSocial>
-        <ButtonSocial provider="google">
+        </SocialButton>
+        <SocialButton provider="google">
           <FaGoogle className="mr-2 h-4 w-4" />
           <span>Sign in with Google</span>
-        </ButtonSocial>
+        </SocialButton>
       </div>
     </div>
   );
